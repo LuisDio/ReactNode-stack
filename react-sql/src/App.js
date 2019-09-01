@@ -5,7 +5,11 @@ import './App.css';
 class App extends React.Component {
 
   state = {
-    products : []
+    products : [],
+    product: {
+      name: 'sample product',
+      price: 20
+    }
   }
 
   componentDidMount() {
@@ -15,20 +19,27 @@ class App extends React.Component {
   getProducts = _ => {
     fetch('http://localhost:4000/products')
       .then(response => response.json())
-      .then(({ data }) => {
-        console.log(data)
-      })
+      .then(response => this.setState({ products: response.data }))
       .catch(err => console.error(err))
+  }
+
+  addProduct = _ => {
+
   }
 
   renderProduct = ({product_id, name}) => <div key={product_id}>{name}</div>
 
   render() {
-    const { products } = this.state;
+    const { products, product } = this.state;
     return (
 
       <div className="App">
         {products.map(this.renderProduct)}
+
+        <div>
+          <input value={product.name} />
+          <input value={product.price} />
+        </div>
     </div>
 
     );
