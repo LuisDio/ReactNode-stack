@@ -32,6 +32,7 @@ class App extends React.Component {
 
   }
 
+  // Return a list of product conatined in the database
   renderProduct = ({product_id, name}) => <div key={product_id}>{name}</div>
 
   render() {
