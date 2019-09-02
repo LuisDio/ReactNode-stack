@@ -24,6 +24,11 @@ class App extends React.Component {
   }
 
   addProduct = _ => {
+    const { product } = this.state;
+    fetch(`http://localhost:4000/products/add?name=${product.name}&price=${product.price}`)
+    //.then(response => response.json())
+    .then(this.getProducts)
+    .catch(err => console.error(err))
 
   }
 
@@ -37,8 +42,9 @@ class App extends React.Component {
         {products.map(this.renderProduct)}
 
         <div>
-          <input value={product.name} />
-          <input value={product.price} />
+          <input value={product.name} onChange={e => this.setState({ product: { ...product, name: e.target.value}})} />
+          <input value={product.price} onChange={e => this.setState({ product: { ...product, price: e.target.value}})} />
+          <button onClick={this.addProduct}>Add product</button>
         </div>
     </div>
 
